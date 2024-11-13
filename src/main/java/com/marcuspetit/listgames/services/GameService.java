@@ -36,4 +36,6 @@ public class GameService {
         Game result = gameRepository.findById(id).get();
         return new GameDTO(result);
     }
+
+
 }
