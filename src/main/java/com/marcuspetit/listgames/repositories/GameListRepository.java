@@ -1,6 +1,7 @@
 package com.marcuspetit.listgames.repositories;
 
 import com.marcuspetit.listgames.entities.GameList;
+import com.marcuspetit.listgames.projections.GameMinProjection;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

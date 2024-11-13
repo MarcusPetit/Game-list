@@ -1,7 +1,6 @@
 package com.marcuspetit.listgames.controllers;
 
 import com.marcuspetit.listgames.dto.GameDTO;
-import com.marcuspetit.listgames.dto.GameListDTO;
 import com.marcuspetit.listgames.dto.GameMinDto;
 import com.marcuspetit.listgames.services.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +27,4 @@ public class GameController {
         return gameService.findById(id);
     }
 
-    @GetMapping("/list")
-    public List<GameListDTO> findeAllList() {
-        return gameService.findeAllList();
-    }
 }
