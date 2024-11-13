@@ -1,6 +1,7 @@
 package com.marcuspetit.listgames.dto;
 
 import com.marcuspetit.listgames.entities.Game;
+import com.marcuspetit.listgames.projections.GameMinProjection;
 
 public class GameMinDto {
     private Long id;
@@ -18,6 +19,14 @@ public class GameMinDto {
         year = entity.getYear();
         imgUrl = entity.getImgUrl();
         shortDescription = entity.getShortDescription();
+    }
+
+    public GameMinDto(GameMinProjection gameMinProjection) {
+        id = gameMinProjection.getId();
+        title = gameMinProjection.getTitle();
+        year = gameMinProjection.getYear();
+        imgUrl = gameMinProjection.getImgUrl();
+        shortDescription = gameMinProjection.getShortDescription();
     }
 
     public Long getId() {

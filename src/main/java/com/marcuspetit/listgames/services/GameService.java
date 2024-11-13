@@ -3,6 +3,7 @@ package com.marcuspetit.listgames.services;
 import com.marcuspetit.listgames.dto.GameDTO;
 import com.marcuspetit.listgames.dto.GameMinDto;
 import com.marcuspetit.listgames.entities.Game;
+import com.marcuspetit.listgames.projections.GameMinProjection;
 import com.marcuspetit.listgames.repositories.GameRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,5 +38,14 @@ public class GameService {
         return new GameDTO(result);
     }
 
+    // Recupera uma lista de jogos pertencentes a uma lista específica e os mapeia para uma lista de objetos GameMinDto
+    @Transactional(readOnly = true)
+    public List<GameMinDto> searchByList(Long listId) {
+        if (listId == null || listId <= 0) {
+            throw new IllegalArgumentException("O id da lista precisa ser válido");
+        }
+        List<GameMinProjection> result = gameRepository.searchByList(listId);
+        return result.stream().map(GameMinDto::new).toList();
+    }
 
 }

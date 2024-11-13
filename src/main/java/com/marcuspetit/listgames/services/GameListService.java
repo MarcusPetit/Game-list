@@ -25,5 +25,13 @@ public class GameListService {
         }
     }
 
+    public GameListDTO findById(Long id) {
+        if (id == null || id <= 0) {
+            throw new IllegalArgumentException("O id da lista de jogos precisa ser válido");
+        }
+        GameList result = gameListRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Lista de jogos não encontrada para o id: " + id));
+        return new GameListDTO(result);
+    }
 
 }
