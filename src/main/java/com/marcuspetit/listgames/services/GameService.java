@@ -1,5 +1,6 @@
 package com.marcuspetit.listgames.services;
 
+import com.marcuspetit.listgames.dto.GameMinDto;
 import com.marcuspetit.listgames.entities.Game;
 import com.marcuspetit.listgames.repositories.GameRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,8 @@ public class GameService {
     @Autowired
     private GameRepository gameRepository;
 
-    public List<Game> findeAll() {
-        return gameRepository.findAll();
+    public List<GameMinDto> findeAll() {
+        List<Game> result = gameRepository.findAll();
+        return result.stream().map(GameMinDto::new).toList();
     }
 }
