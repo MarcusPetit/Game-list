@@ -2,7 +2,9 @@ package com.marcuspetit.listgames.services;
 
 import com.marcuspetit.listgames.dto.GameListDTO;
 import com.marcuspetit.listgames.entities.GameList;
+import com.marcuspetit.listgames.projections.GameMinProjection;
 import com.marcuspetit.listgames.repositories.GameListRepository;
+import com.marcuspetit.listgames.repositories.GameRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,6 +15,9 @@ import java.util.List;
 public class GameListService {
     @Autowired
     private GameListRepository gameListRepository;
+
+    @Autowired
+    private GameRepository gameRepository;
 
     // Recupera uma lista de todos os jogos e os mapeia para uma lista de objetos GameMinDto
     @Transactional(readOnly = true)
@@ -33,5 +38,22 @@ public class GameListService {
                 .orElseThrow(() -> new RuntimeException("Lista de jogos não encontrada para o id: " + id));
         return new GameListDTO(result);
     }
+
+    @Transactional
+    public void move(Long listId, int sourceIndex, int destinationIndex) {
+
+        List<GameMinProjection> list = gameRepository.searchByList(listId);
+
+        GameMinProjection obj = list.remove(sourceIndex);
+        list.add(destinationIndex, obj);
+
+        int min = Math.min(sourceIndex, destinationIndex);
+        int max = Math.max(sourceIndex, destinationIndex);
+
+        for (int i = min; i <= max; i++) {
+            gameListRepository.updateBelongingPosition(listId, list.get(i).getId(), i);
+        }
+    }
+
 
 }

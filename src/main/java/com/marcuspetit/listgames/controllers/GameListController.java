@@ -5,10 +5,8 @@ import com.marcuspetit.listgames.dto.GameMinDto;
 import com.marcuspetit.listgames.services.GameListService;
 import com.marcuspetit.listgames.services.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -35,6 +33,16 @@ public class GameListController {
     @GetMapping("/{listId}/games")
     public List<GameMinDto> searchByList(@PathVariable Long listId) {
         return gameService.searchByList(listId);
+    }
+
+    @PostMapping("/mover/{listId}/{gameId}/{position}")
+    public ResponseEntity<Void> move(@PathVariable Long listId, @PathVariable int gameId, @PathVariable Integer position) {
+        try {
+            gameListService.move(listId, gameId, position);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
 }
