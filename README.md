@@ -68,5 +68,6 @@ Banco de Dados PostgreSQL com Docker Compose
 Observações
 
     O sistema ListGames é um projeto de estudos e está em constante evolução
+    Coloquei validações e tratamentos de exceções para melhorar a qualidade do código
     A parte de testes e exceções será melhorada com o passar do tempo
     Qualquer contribuição ou sugestão é bem-vinda para melhorar o sistema
